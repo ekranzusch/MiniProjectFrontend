@@ -1,27 +1,22 @@
 const express = require('express');
-const { createClient } = require('redis');
+const { uniqueNamesGenerator, starWars } = require('unique-names-generator');
 const app = express();
-
-(async () => {
-  const client = createClient({
-    // TODO FIX URL with ENV VARS from Docker
-    url: 'redis://alice:foobared@awesome.redis.server:6380'
-  });
-
-  client.on('error', (err) => console.log('Redis Client Error', err));
-
-  await client.connect();
-
-  await client.set('key', 'value');
-  const value = await client.get('key');
-})();
-
+// Get maximum character from ENVs else return 5 character
+const MAX_STAR_WARS_CHARACTERS = process.env.MAX_STAR_WARS_CHARACTERS || 5;
+const config = {
+  dictionaries: [starWars]
+}
+// Get the character name array
+const getStarWarsCharacters = () => {
+ const characterNames = [];
+for (let i = 1; i <= MAX_STAR_WARS_CHARACTERS; i += 1) {
+  characterNames.push(uniqueNamesGenerator(config));
+ }
+ return characterNames;
+};
 app.get('/', (req, res) => {
-  // TODO check if this works without await/async
-  const keys = client.get('key')
-  res.json(keys);
+ res.json(getStarWarsCharacters());
 });
-
 app.listen(3000, () => {
-  console.log('Server started on port 3000');
+ console.log('Server started on port 3000');
 });
