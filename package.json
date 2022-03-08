@@ -20,7 +20,6 @@
   "homepage": "https://github.com/ekranzusch/MiniProjectFrontend#readme",
   "dependencies": {
     "express": "^4.17.3",
-    "redis": "^4.0.4",
-    "unique-names-generator": "^4.7.1"
+    "redis": "^4.0.4"
   }
 }

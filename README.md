@@ -3,13 +3,16 @@
 ### set up environment
 ```bash
 eval $(minikube docker-env)
-docker build -t starwars-node .
+docker build -t front-end-node .
+minikube start
 ```
 
-### Add configs for front end
+### Add configs for front end and redis
 ```bash
-kubectl apply -f kubernetes-test/sw-deployment.yaml
-kubectl apply -f kubernetes-test/sw-service.yaml
+kubectl apply -f kubernetes-test/front-end-deployment.yaml
+kubectl apply -f kubernetes-test/front-end-service.yaml
+kubectl apply -f kubernetes-test/redis-leader-deployment.yaml
+kubectl apply -f kubernetes-test/redis-leader-service.yaml
 ```
 
 ### set up tunnel to access load balancer
