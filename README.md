@@ -17,6 +17,11 @@ kubectl apply -f kubernetes-test/sw-service.yaml
 minikube tunnel
 ```
 
+### should be able to curl localhost:3000
+```bash
+curl -i http://localhost:3000
+```
+
 <!-- 
 Extra commands
 minikube service sw-service --url 
