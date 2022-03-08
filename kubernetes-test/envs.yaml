@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: sw-envs
-data:
-  maxStarWarsCharacters: "10"
