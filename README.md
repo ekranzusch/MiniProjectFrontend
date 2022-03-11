@@ -1,19 +1,12 @@
 # MiniProjectFrontend
 
-### set up environment
-```bash
-eval $(minikube docker-env)
-```
-
 ### start minikube
 ```bash
 minikube start
 ```
-
-### start redis
+### set up environment
 ```bash
-kubectl apply -f kubernetes-test/redis-leader-deployment.yaml
-kubectl apply -f kubernetes-test/redis-leader-service.yaml
+eval $(minikube docker-env)
 ```
 
 ### build docker image
@@ -21,25 +14,24 @@ kubectl apply -f kubernetes-test/redis-leader-service.yaml
 docker build -t front-end-node .
 ```
 
-### start front end service
+### deploy redis, the redis service, front-end-node, and front-end-node service
 ```bash
+kubectl apply -f kubernetes-test/redis-leader-deployment.yaml
+kubectl apply -f kubernetes-test/redis-leader-service.yaml
+kubectl apply -f kubernetes-test/front-end-deployment.yaml
 kubectl apply -f kubernetes-test/front-end-service.yaml
 ```
-<!-- 
-kubectl delete -f kubernetes-test/front-end-deployment.yaml
- -->
 
 ### set up tunnel to access load balancer
 ```bash
 minikube tunnel
 ```
 
-### start front end
-```bash
-kubectl apply -f kubernetes-test/front-end-deployment.yaml
-```
-
 ### should be able to curl localhost:3000
 ```bash
 curl -i http://localhost:3000
 ```
+
+<!-- 
+kubectl delete -f kubernetes-test/front-end-deployment.yaml
+ -->
